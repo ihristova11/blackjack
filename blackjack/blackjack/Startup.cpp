@@ -2,5 +2,11 @@
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    // read players from binary file;
+	// select player or create a new one
+	// choose size of deck
+	// 
+
+
+	return 0;
 }
