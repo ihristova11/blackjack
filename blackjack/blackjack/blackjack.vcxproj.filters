@@ -44,5 +44,11 @@
     <ClInclude Include="Rules.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CardSuit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CardType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
