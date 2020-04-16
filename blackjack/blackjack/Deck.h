@@ -7,7 +7,7 @@ class Deck
 {
 public:
 	Deck() = default;
-	Deck(size_t, char*);
+	Deck(const size_t&, const char*);
 
 	Card draw();  // return type? Card&
 	Deck& swap(size_t, size_t); // chaining
@@ -16,8 +16,11 @@ public:
 	size_t rank_count(CardType) const;
 
 private:
-	Card cards[52]; // todo: constant
+	Card cards[104]; // todo: constant
 	char serialNumber[11]; // todo: constant
+	size_t numberOfCards;
+
+	bool isValid(size_t) const;
 };
 
 #endif // !DECK_H

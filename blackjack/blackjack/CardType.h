@@ -1,4 +1,4 @@
-enum CardType {
+enum class CardType {
 	TWO, 
 	THREE, 
 	FOUR, 
