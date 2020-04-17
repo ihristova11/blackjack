@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include "Card.h"
+#include "Rules.h"
 #include <ostream>
 
 class Player
@@ -17,8 +18,8 @@ public:
 
 	int getScore() const;
 
-	char* name; // dynamic memory
-	Player& addCard(const Card&);
+	char name[100];
+	Player& addCard(const Card&, const Rules&);
 	std::ostream& printDrawn(std::ostream&) const;
 	std::ostream& printPlayer(std::ostream&) const;
 
@@ -28,7 +29,7 @@ private:
 	double coefficient;
 	unsigned int score;
 
-	Card* drawnCards;
+	Card drawnCards[104];
 	size_t drawnLen;
 
 	void copyData(const Player&);

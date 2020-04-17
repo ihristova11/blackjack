@@ -16,7 +16,7 @@ void Rules::setCardPoints(const int* arr)
 	}
 }
 
-int Rules::getCardPoints(int index)
+int Rules::getCardPoints(const int& index) const
 {
 	return this->cardPoints[index];
 }

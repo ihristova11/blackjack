@@ -8,7 +8,7 @@ public:
 	~Rules();
 
 	void setCardPoints(const int*);
-	int getCardPoints(int index);
+	int getCardPoints(const int& index) const;
 
 private:
 	int cardPoints[13];

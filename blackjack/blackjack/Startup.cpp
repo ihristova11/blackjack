@@ -6,7 +6,7 @@
 #include "Deck.h"
 #include "Rules.h"
 
-void printPlayers(const Player* players, int n)
+void print_players(const Player* players, int n)
 {
 	for (size_t i = 0; i < n; i++)
 	{
@@ -14,7 +14,7 @@ void printPlayers(const Player* players, int n)
 	}
 }
 
-void loadPlayers(Player* players, int n)
+void load_players(Player* players, int n)
 {
 	std::ifstream ifs;
 	ifs.open("players.bin", std::ios::in | std::ios::binary);
@@ -27,13 +27,8 @@ void loadPlayers(Player* players, int n)
 	ifs.close();
 }
 
-void seedPlayers()
+void save_players(const Player* players, int n)
 {
-	Player* players = new Player[3];
-	players[0] = Player("Ivan Ivanov");
-	players[1] = Player("Petar Petrov");
-	players[2] = Player("Dimitar Dimitrov");
-
 	std::ofstream ofs;
 	ofs.open("players.bin", std::ios::out | std::ios::binary);
 	if (!ofs)
@@ -41,23 +36,35 @@ void seedPlayers()
 		std::cerr << "Not able to open binary!" << std::endl;
 	}
 	ofs.seekp(0, std::ios::beg);
-	ofs.write((char*) & *players, sizeof(Player) * 3);
+	ofs.write((char*) & *players, sizeof(Player) * n);
 	ofs.close();
 }
+
+void seed_players()
+{
+	Player* players = new Player[3];
+	players[0] = Player("Ivan Ivanov");
+	players[1] = Player("Petar Petrov");
+	players[2] = Player("Dimitar Dimitrov");
+
+	save_players(players, 3);
+}
+
 
 int main()
 {
 	bool end = false;
 
-	seedPlayers();
+	seed_players();
 
 	// TODO: check for players in file
 
 	// for testing purposes
 	int n = 3;
-	Player* players = new Player[n]; // to be deleted
-	loadPlayers(players, n);
-	printPlayers(players, n);
+	Player* players = new Player[n];
+
+	load_players(players, n);
+	print_players(players, n);
 
 	Player currentPlayer;
 
@@ -77,57 +84,88 @@ int main()
 	if (currentPlayer.name == nullptr)
 	{
 		// create a new player with that name
-		currentPlayer.name = name;
+		currentPlayer = Player(name);
 	}
 
 	// create dealer
-	Player dealer; // default player
+	Player dealer;
+	std::cout << "You will play as " << currentPlayer.name
+		<< ". Choоse the size of the deck:" << std::endl;
 
-	// print message for success
-	std::cout << "You will play as " << currentPlayer.name << ". Choоse the size of the deck:" << std::endl;
+	// create deck
 	int deckSize = 0;
 	std::cin >> deckSize;
 	std::cin.ignore();
 	Deck deck(deckSize);
 
-	// for testing purposes since there is no information in the assignment
+	// create rules
 	int points[13] = { 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 10, 10, 10 };
 	Rules rules;
 	rules.setCardPoints(points);
-
+	
+	// start game
 	std::cout << "Start!" << std::endl;
+	char command[13];
 
 	// engine
 	while (!end)
 	{
 		std::cout << "Hit/Stand/Probability" << std::endl;
-		char command[12];
-		std::cin.getline(command, 11);
+		std::cin.getline(command, 12);
 
-		if (strcmp(command, "Hit"))
+		if (strcmp(command, "Hit") == 0)
 		{
 			// draw a card from the deck
-			currentPlayer.addCard(deck.draw());
-			// update player's score
+			currentPlayer.addCard(deck.draw(), rules);
+			currentPlayer.printDrawn(std::cout);
 
+			if (currentPlayer.getScore() > 21)
+			{
+				// player lost
+			}
 		}
-		else if (strcmp(command, "Stand"))
+		else if (strcmp(command, "Stand") == 0)
 		{
+			// start dealer draw
+			while (dealer.getScore() <= 17)
+			{
+				dealer.addCard(deck.draw(), rules);
+			}
 
+			dealer.printDrawn(std::cout);
+
+			if (dealer.getScore() > 21)
+			{
+				// dealer lost;
+			}
+			else
+			{
+				// compare scores
+				if (currentPlayer.getScore() >= dealer.getScore())
+				{
+					std::cout << "You won!" << std::endl;
+				}
+				else
+				{
+					std::cout << "You lose!" << std::endl;
+				}
+			}
+			break;
 		}
-		else if (strcmp(command, "Probability"))
+		else if (strcmp(command, "Probability") == 0)
 		{
-			std::cout << deck.find_probability(currentPlayer.getScore());
+			std::cout << deck.find_probability(currentPlayer.getScore()) << std::endl;
 		}
 		else
 		{
 			std::cerr << "Invalid command!" << std::endl;
 			std::cerr << "Enter a valid one!" << std::endl;
-			std::cin.getline(command, 11);
+			std::cin.getline(command, 12);
 		}
 	}
 
 	// save players to file
+	save_players(players, n);
 
 	delete[] players;
 
