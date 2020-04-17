@@ -50,6 +50,11 @@ Player::~Player()
 	delete[] drawnCards;
 }
 
+int Player::getScore() const
+{
+	return this->score;
+}
+
 Player& Player::addCard(const Card& card)
 {
 	if (drawnLen == 0)
@@ -77,6 +82,8 @@ Player& Player::addCard(const Card& card)
 
 		delete[] temp;
 	}
+
+	// update points
 
 	return *this;
 }

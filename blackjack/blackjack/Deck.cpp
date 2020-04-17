@@ -1,13 +1,20 @@
 #include "Deck.h"
+#include <cmath>
+#include <time.h>
 
-Deck::Deck() : cards(nullptr), serialNumber("Default"), numberOfCards(52)
+Deck::Deck() : serialNumber("Default"), numberOfCards(52)
 {
+	this->add_cards(52);
 }
 
-Deck::Deck(const size_t& k, const char* s)
-	: cards(nullptr), numberOfCards(k)
+Deck::Deck(const int& k, const char* s)
+	: cards(), numberOfCards(k)
 {
-	// check for custom 
+	if (k == 52)
+	{
+		this->add_cards(k);
+	}
+
 	strcpy_s(this->serialNumber, strlen(s) + 1, s);
 }
 
@@ -26,9 +33,9 @@ Card Deck::draw()
 	return first;
 }
 
-Deck& Deck::swap(size_t first, size_t second)
+Deck& Deck::swap(int first, int second)
 {
-	if (isValid(first) && isValid(second))
+	if (valid(first) && valid(second))
 	{
 		Card temp = this->cards[first - 1];
 		this->cards[first - 1] = this->cards[second - 1];
@@ -68,7 +75,7 @@ size_t Deck::rank_count(CardType ct) const
 	return count;
 }
 
-double Deck::findProbability(const size_t& score) const
+double Deck::find_probability(const int& score) const
 {
 	double probability = 0;
 	size_t desired = 21 - score;
@@ -80,12 +87,12 @@ double Deck::findProbability(const size_t& score) const
 			++count;
 		}
 	}
-	probability = count / findDrawnNumber();
+	probability = count / find_drawn();
 
 	return probability;
 }
 
-int Deck::findDrawnNumber() const
+int Deck::find_drawn() const
 {
 	int count = 0;
 
@@ -100,7 +107,39 @@ int Deck::findDrawnNumber() const
 	return count;
 }
 
-bool Deck::isValid(size_t index) const
+void Deck::add_cards(int count) // improve
+{
+	int suits = static_cast<int>(ceil(count / 13.0));
+
+	for (size_t cardSuit = 0; cardSuit < suits; cardSuit++)
+	{
+		for (size_t cardType = 0; (cardSuit * 13 + cardType) < 13; cardType++)
+		{
+			this->cards[cardSuit * 13 + cardType] =
+				Card(static_cast<CardSuit>(cardSuit),
+					static_cast<CardType>(cardType),
+					this->serialNumber + cardSuit * 13 + cardType);
+		}
+	}
+
+	this->shuffle();
+}
+
+void Deck::shuffle()
+{
+	int size = this->numberOfCards;
+	
+	srand(time(NULL));
+
+	for (int i = size - 1; i > 0; i--)
+	{ 
+		int j = rand() % (i + 1);
+
+		swap(i, j);
+	}
+}
+
+bool Deck::valid(int index) const
 {
 	return index - 1 >= 0 && index - 1 < this->numberOfCards;
 }

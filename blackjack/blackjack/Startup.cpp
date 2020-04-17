@@ -54,7 +54,7 @@ int main()
 	// TODO: check for players in file
 
 	// for testing purposes
-	int n = 3; 
+	int n = 3;
 	Player* players = new Player[n]; // to be deleted
 	loadPlayers(players, n);
 	printPlayers(players, n);
@@ -87,8 +87,9 @@ int main()
 	std::cout << "You will play as " << currentPlayer.name << ". Choоse the size of the deck:" << std::endl;
 	int deckSize = 0;
 	std::cin >> deckSize;
+	std::cin.ignore();
 	Deck deck(deckSize);
-	
+
 	// for testing purposes since there is no information in the assignment
 	int points[13] = { 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 10, 10, 10 };
 	Rules rules;
@@ -116,7 +117,7 @@ int main()
 		}
 		else if (strcmp(command, "Probability"))
 		{
-
+			std::cout << deck.find_probability(currentPlayer.getScore());
 		}
 		else
 		{
