@@ -50,8 +50,5 @@
     <ClInclude Include="CardType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="OwnerType.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

@@ -71,7 +71,7 @@ int main()
 	}
 
 	// create dealer
-	Player dealer(); // default player
+	Player dealer; // default player
 
 	// print message for success
 	std::cout << "You will play as " << currentPlayer.name << ". Choоse the size of the deck:" << std::endl;

@@ -1,8 +1,7 @@
 #include "Rules.h"
 
-Rules::Rules()
+Rules::Rules() : cardPoints{}
 {
-	// init with 0s
 }
 
 Rules::~Rules()

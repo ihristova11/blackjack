@@ -6,7 +6,7 @@
 class Deck
 {
 public:
-	Deck() = default;
+	Deck();
 	Deck(const size_t&, const char* = "Custom");
 
 	Card draw();  // return type? Card&

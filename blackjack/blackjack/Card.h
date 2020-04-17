@@ -3,7 +3,6 @@
 
 #include "CardSuit.h"
 #include "CardType.h"
-#include "OwnerType.h"
 #include <ostream>
 
 class Card
@@ -26,7 +25,6 @@ private:
 	char serialNumber[16]; // to do: constant
 
 	bool drawn;
-	OwnerType owner;
 };
 
 #endif // !CARD_H

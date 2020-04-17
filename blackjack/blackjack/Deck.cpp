@@ -1,9 +1,10 @@
 #include "Deck.h"
 
-//Deck::Deck() : cards(nullptr), serialNumber("Default"), numberOfCards(52)
-//{ }
+Deck::Deck() : cards(nullptr), serialNumber("Default"), numberOfCards(52)
+{
+}
 
-Deck::Deck(const size_t& k, const char* s) 
+Deck::Deck(const size_t& k, const char* s)
 	: cards(nullptr), numberOfCards(k)
 {
 	// check for custom 
