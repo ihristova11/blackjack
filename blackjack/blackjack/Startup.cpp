@@ -56,6 +56,7 @@ void seed_players()
 int main()
 {
 	bool end = false;
+	bool custom_player = false;
 
 	seed_players();
 
@@ -83,28 +84,40 @@ int main()
 		}
 	}
 
-	if (currentPlayer.name == nullptr)
+	if (strcmp(currentPlayer.name, "") == 0)
 	{
 		// create a new player with that name
 		currentPlayer = Player(name);
+		custom_player = true;
 	}
 
 	// create dealer
 	Player dealer;
-	std::cout << "You will play as " << currentPlayer.name
-		<< ". Choоse the size of the deck:" << std::endl;
+	std::cout << "You will play as " << currentPlayer.name << "." << std::endl;
+	std::cout << "To choose default deck, enter default." << std::endl;
+	std::cout << "To choose custom deck, enter custom." << std::endl;
 
-	// create deck
-	int deckSize = 0;
-	std::cin >> deckSize;
-	std::cin.ignore();
-	Deck deck(deckSize);
+	char deck_type[11];
+	std::cin.getline(deck_type, 11);
+
+	Deck deck;
+
+	if (strcmp(deck_type, "default") != 0)
+	{
+		std::cout << "Choоse the size of the deck:" << std::endl;
+
+		// create deck
+		int deckSize = 0;
+		std::cin >> deckSize;
+		std::cin.ignore();
+		deck = Deck(deckSize);
+	}
 
 	// create rules
 	int points[13] = { 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 10, 10, 10 };
 	Rules rules;
 	rules.setCardPoints(points);
-	
+
 	// start game
 	std::cout << "Start!" << std::endl;
 	char command[13];
@@ -167,8 +180,14 @@ int main()
 		}
 	}
 
+	players[n] = currentPlayer;
+
 	// save players to file
-	save_players(players, n);
+	save_players(players, n + 1);
+	if (custom_player)
+	{
+		save_players(&currentPlayer, 1);
+	}
 
 	delete[] players;
 

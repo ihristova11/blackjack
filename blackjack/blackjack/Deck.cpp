@@ -10,12 +10,21 @@ Deck::Deck() : serialNumber("Default"), numberOfCards(52)
 Deck::Deck(const int& k, const char* s)
 	: numberOfCards(k)
 {
-	if (k == 52)
-	{
-		this->add_cards(k);
-	}
+	this->add_cards(k);
 
 	strcpy_s(this->serialNumber, strlen(s) + 1, s);
+}
+
+Deck& Deck::operator=(const Deck& other)
+{
+	strcpy_s(this->serialNumber, strlen(other.serialNumber) + 1, other.serialNumber);
+	this->numberOfCards = other.numberOfCards;
+	for (size_t i = 0; i < 104; i++)
+	{
+		this->cards[i] = other.cards[i];
+	}
+
+	return *this;
 }
 
 Card Deck::draw()
@@ -109,17 +118,26 @@ int Deck::find_drawn() const
 
 void Deck::add_cards(int count) // improve
 {
-	int suits = static_cast<int>(ceil(count / 13.0));
-
-	for (size_t cardSuit = 0; cardSuit < suits; cardSuit++)
+	this->numberOfCards = count;
+	int ind;
+	for (size_t d = 0; d < 2; d++)
 	{
-		for (size_t cardType = 0; (cardSuit * 13 + cardType) < count; cardType++)
+		for (size_t s = 0; s < 4; s++)
 		{
-			this->cards[cardSuit * 13 + cardType] =
-				Card(static_cast<CardSuit>(cardSuit),
-					static_cast<CardType>(cardType),
-					this->serialNumber + cardSuit * 13 + cardType);
+			for (size_t t = 0; t < 13; t++)
+			{
+				ind = d * 52 + s * 13 + t;
+				this->cards[ind] =
+					Card(static_cast<CardSuit>(s),
+						static_cast<CardType>(t),
+						this->serialNumber + ind);
+			}
 		}
+	}
+
+	for (size_t i = count; i < 104; i++)
+	{
+		this->cards[i] = Card(CardSuit::None, CardType::NONE, "");
 	}
 
 	this->shuffle();
@@ -128,11 +146,11 @@ void Deck::add_cards(int count) // improve
 void Deck::shuffle()
 {
 	int size = this->numberOfCards;
-	
+
 	srand(time(NULL));
 
 	for (int i = size - 1; i > 0; i--)
-	{ 
+	{
 		int j = rand() % (i + 1);
 
 		swap(i, j);

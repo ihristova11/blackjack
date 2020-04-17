@@ -8,6 +8,7 @@ class Deck
 public:
 	Deck();
 	Deck(const int&, const char* = "Custom");
+	Deck& operator=(const Deck&);
 
 	Card draw();
 	Deck& swap(int, int);
