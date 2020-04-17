@@ -16,12 +16,12 @@ public:
 
 	~Player();
 
-	int getScore() const;
+	int get_score() const;
 
 	char name[100];
-	Player& addCard(const Card&, const Rules&);
-	std::ostream& printDrawn(std::ostream&) const;
-	std::ostream& printPlayer(std::ostream&) const;
+	Player& add_card(const Card&, const Rules&);
+	std::ostream& print_drawn(std::ostream&) const;
+	std::ostream& print_player(std::ostream&) const;
 
 private:
 	unsigned int age;
@@ -32,7 +32,7 @@ private:
 	Card drawnCards[104];
 	size_t drawnLen;
 
-	void copyData(const Player&);
+	void copy_internals(const Player&);
 };
 
 #endif // !PLAYER_H

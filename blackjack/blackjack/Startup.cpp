@@ -10,7 +10,7 @@ void print_players(const Player* players, int n)
 {
 	for (size_t i = 0; i < n; i++)
 	{
-		players[i].printPlayer(std::cout) << std::endl;
+		players[i].print_player(std::cout) << std::endl;
 	}
 }
 
@@ -48,6 +48,8 @@ void seed_players()
 	players[2] = Player("Dimitar Dimitrov");
 
 	save_players(players, 3);
+
+	delete[] players;
 }
 
 
@@ -116,10 +118,10 @@ int main()
 		if (strcmp(command, "Hit") == 0)
 		{
 			// draw a card from the deck
-			currentPlayer.addCard(deck.draw(), rules);
-			currentPlayer.printDrawn(std::cout);
+			currentPlayer.add_card(deck.draw(), rules);
+			currentPlayer.print_drawn(std::cout);
 
-			if (currentPlayer.getScore() > 21)
+			if (currentPlayer.get_score() > 21)
 			{
 				// player lost
 			}
@@ -127,21 +129,21 @@ int main()
 		else if (strcmp(command, "Stand") == 0)
 		{
 			// start dealer draw
-			while (dealer.getScore() <= 17)
+			while (dealer.get_score() <= 17)
 			{
-				dealer.addCard(deck.draw(), rules);
+				dealer.add_card(deck.draw(), rules);
 			}
 
-			dealer.printDrawn(std::cout);
+			dealer.print_drawn(std::cout);
 
-			if (dealer.getScore() > 21)
+			if (dealer.get_score() > 21)
 			{
 				// dealer lost;
 			}
 			else
 			{
 				// compare scores
-				if (currentPlayer.getScore() >= dealer.getScore())
+				if (currentPlayer.get_score() >= dealer.get_score())
 				{
 					std::cout << "You won!" << std::endl;
 				}
@@ -154,7 +156,7 @@ int main()
 		}
 		else if (strcmp(command, "Probability") == 0)
 		{
-			std::cout << deck.find_probability(currentPlayer.getScore()) << std::endl;
+			std::cout << deck.find_probability(currentPlayer.get_score()) << std::endl;
 		}
 		else
 		{

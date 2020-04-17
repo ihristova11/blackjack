@@ -2,16 +2,15 @@
 #include <cstring>
 
 Player::Player()
-	: name(), age(18), wins(0), coefficient(0), score(0), drawnCards(), drawnLen(0)
+	: age(18), wins(0), coefficient(0), score(0), drawnCards(), drawnLen(0)
 {}
 
 Player::Player(const Player& other)
 {
-	copyData(other);
+	copy_internals(other);
 }
 
 Player::Player(const char* name) :
-	name(),
 	age(18),
 	wins(0),
 	coefficient(0),
@@ -23,7 +22,6 @@ Player::Player(const char* name) :
 }
 
 Player::Player(const char* name, const size_t& wins, const double& coefficient) :
-	name(),
 	age(18), // constant 
 	wins(wins),
 	coefficient(coefficient),
@@ -38,7 +36,7 @@ Player& Player::operator=(const Player& other)
 {
 	if (this != &other)
 	{
-		copyData(other);
+		copy_internals(other);
 	}
 
 	return *this;
@@ -48,12 +46,12 @@ Player::~Player()
 {
 }
 
-int Player::getScore() const
+int Player::get_score() const
 {
 	return this->score;
 }
 
-Player& Player::addCard(const Card& card, const Rules& rules)
+Player& Player::add_card(const Card& card, const Rules& rules)
 {
 	this->drawnCards[drawnLen] = card;
 	++drawnLen;
@@ -64,7 +62,7 @@ Player& Player::addCard(const Card& card, const Rules& rules)
 	return *this;
 }
 
-std::ostream& Player::printDrawn(std::ostream& out) const
+std::ostream& Player::print_drawn(std::ostream& out) const
 {
 	for (size_t i = 0; i < drawnLen; i++)
 	{
@@ -76,25 +74,23 @@ std::ostream& Player::printDrawn(std::ostream& out) const
 	return out;
 }
 
-std::ostream& Player::printPlayer(std::ostream& out) const
+std::ostream& Player::print_player(std::ostream& out) const
 {
 	out << this->name << " " << this->wins << " " << this->coefficient;
 
 	return out;
 }
 
-void Player::copyData(const Player& other) // redo
+void Player::copy_internals(const Player& other)
 {
-	/*this->name = new char[strlen(other.name) + 1];
 	strcpy_s(this->name, strlen(other.name) + 1, other.name);
 	this->age = other.age;
 	this->coefficient = other.coefficient;
 	this->score = other.score;
 	this->wins = other.wins;
 	this->drawnLen = other.drawnLen;
-	this->drawnCards = new Card[other.drawnLen + 1];
 	for (size_t i = 0; i < other.drawnLen; i++)
 	{
 		this->drawnCards[i] = other.drawnCards[i];
-	}*/
+	}
 }
