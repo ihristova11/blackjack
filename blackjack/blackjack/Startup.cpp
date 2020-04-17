@@ -123,7 +123,8 @@ int main()
 
 			if (currentPlayer.get_score() > 21)
 			{
-				// player lost
+				std::cout << "You lose!" << std::endl;
+				end = true;
 			}
 		}
 		else if (strcmp(command, "Stand") == 0)
@@ -152,7 +153,7 @@ int main()
 					std::cout << "You lose!" << std::endl;
 				}
 			}
-			break;
+			end = true;
 		}
 		else if (strcmp(command, "Probability") == 0)
 		{

@@ -8,7 +8,7 @@ Deck::Deck() : serialNumber("Default"), numberOfCards(52)
 }
 
 Deck::Deck(const int& k, const char* s)
-	: cards(), numberOfCards(k)
+	: numberOfCards(k)
 {
 	if (k == 52)
 	{
@@ -113,7 +113,7 @@ void Deck::add_cards(int count) // improve
 
 	for (size_t cardSuit = 0; cardSuit < suits; cardSuit++)
 	{
-		for (size_t cardType = 0; (cardSuit * 13 + cardType) < 13; cardType++)
+		for (size_t cardType = 0; (cardSuit * 13 + cardType) < count; cardType++)
 		{
 			this->cards[cardSuit * 13 + cardType] =
 				Card(static_cast<CardSuit>(cardSuit),

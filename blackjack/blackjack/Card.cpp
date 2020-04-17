@@ -1,6 +1,6 @@
 #include "Card.h"
 
-Card::Card() : cardSuit(CardSuit::Spades), cardType(CardType::ACE), serialNumber("")
+Card::Card() : cardSuit(CardSuit::None), cardType(CardType::NONE), serialNumber("")
 { }
 
 Card::Card(CardSuit cs, CardType ct, const char* serialNumber) :

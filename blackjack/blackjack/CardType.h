@@ -14,7 +14,8 @@ enum CardType {
 	ACE,
 	KING,
 	QUEEN,
-	JACK
+	JACK, 
+	NONE
 };
 
 #endif // !CARD_TYPE_H
