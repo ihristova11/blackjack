@@ -6,6 +6,14 @@
 #include "Deck.h"
 #include "Rules.h"
 
+void printPlayers(const Player* players, int n)
+{
+	for (size_t i = 0; i < n; i++)
+	{
+		players[i].printPlayer(std::cout) << std::endl;
+	}
+}
+
 void loadPlayers(Player* players, int n)
 {
 	std::ifstream ifs;
@@ -49,18 +57,20 @@ int main()
 	int n = 3; 
 	Player* players = new Player[n]; // to be deleted
 	loadPlayers(players, n);
+	printPlayers(players, n);
 
 	Player currentPlayer;
 
-	std::cout << "Chose a player or enter a new player:" << std::endl;
+	std::cout << "Choose a player or enter a new player:" << std::endl;
 	char name[99];
 	std::cin.getline(name, 100);
 	////// check for a player with that name
 	for (size_t i = 0; i < n; i++)
 	{
-		if (strcmp(players[i].name, name))
+		if (strcmp(players[i].name, name) == 0)
 		{
 			currentPlayer = players[i];
+			break;
 		}
 	}
 
@@ -96,7 +106,7 @@ int main()
 		if (strcmp(command, "Hit"))
 		{
 			// draw a card from the deck
-			deck.draw();
+			currentPlayer.addCard(deck.draw());
 			// update player's score
 
 		}

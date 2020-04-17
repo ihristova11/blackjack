@@ -50,6 +50,37 @@ Player::~Player()
 	delete[] drawnCards;
 }
 
+Player& Player::addCard(const Card& card)
+{
+	if (drawnLen == 0)
+	{
+		drawnCards = new Card[1];
+		drawnCards[0] = card;
+	}
+	else
+	{
+		Card* temp = new Card[drawnLen];
+		for (size_t i = 0; i < drawnLen; i++)
+		{
+			temp[i] = this->drawnCards[i];
+		}
+		
+		delete[] this->drawnCards;
+		++drawnLen;
+		this->drawnCards = new Card[drawnLen];
+		
+		for (size_t i = 0; i < drawnLen - 1; i++)
+		{
+			this->drawnCards[i] = temp[i];
+		}
+		this->drawnCards[drawnLen - 1] = card;
+
+		delete[] temp;
+	}
+
+	return *this;
+}
+
 std::ostream& Player::printDrawn(std::ostream& out) const
 {
 	for (size_t i = 0; i < drawnLen; i++)
@@ -58,6 +89,13 @@ std::ostream& Player::printDrawn(std::ostream& out) const
 	}
 
 	out << "Points(" << this->score << ")" << std::endl;
+
+	return out;
+}
+
+std::ostream& Player::printPlayer(std::ostream& out) const
+{
+	out << this->name << " " << this->wins << " " << this->coefficient;
 
 	return out;
 }

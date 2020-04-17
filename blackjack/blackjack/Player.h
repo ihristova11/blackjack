@@ -16,8 +16,9 @@ public:
 	~Player();
 
 	char* name; // dynamic memory
-
+	Player& addCard(const Card&);
 	std::ostream& printDrawn(std::ostream&) const;
+	std::ostream& printPlayer(std::ostream&) const;
 
 private:
 	unsigned int age;
