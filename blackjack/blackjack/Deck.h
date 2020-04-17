@@ -7,7 +7,7 @@ class Deck
 {
 public:
 	Deck() = default;
-	Deck(const size_t&, const char*);
+	Deck(const size_t&, const char* = "Custom");
 
 	Card draw();  // return type? Card&
 	Deck& swap(size_t, size_t); // chaining

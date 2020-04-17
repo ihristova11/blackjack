@@ -1,8 +1,13 @@
 #include "Deck.h"
 
-Deck::Deck(const size_t& k, const char* s = "Custom")
+//Deck::Deck() : cards(nullptr), serialNumber("Default"), numberOfCards(52)
+//{ }
+
+Deck::Deck(const size_t& k, const char* s) 
+	: cards(nullptr), numberOfCards(k)
 {
-	// todo implement
+	// check for custom 
+	strcpy_s(this->serialNumber, strlen(s) + 1, s);
 }
 
 Card Deck::draw()

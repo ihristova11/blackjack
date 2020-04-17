@@ -1,10 +1,16 @@
 #include "Card.h"
 
+Card::Card() : cardSuit(CardSuit::Spades), cardType(CardType::ACE), serialNumber("")
+{ }
+
 Card::Card(CardSuit cs, CardType ct, const char* serialNumber) :
 	cardSuit(cs), cardType(ct), drawn(false)
 {
 	strcpy_s(this->serialNumber, strlen(serialNumber) + 1, serialNumber);
 }
+
+Card::~Card()
+{ }
 
 bool Card::getDrawn() const
 {
