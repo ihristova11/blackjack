@@ -1,8 +1,8 @@
 #include "Card.h"
 
-bool Card::getIsInPlayer() const
+bool Card::getDrawn() const
 {
-	return this->isInPlayer;
+	return this->drawn;
 }
 
 CardSuit Card::getCardSuit() const
@@ -13,4 +13,15 @@ CardSuit Card::getCardSuit() const
 CardType Card::getCardType() const
 {
 	return this->cardType;
+}
+
+void Card::setDrawn(bool isDrawn)
+{
+	this->drawn = isDrawn;
+}
+
+std::ostream& Card::print(std::ostream& out) const
+{
+	// out << this->cardType << "(" << this->cardSuit << ")";
+	return out;
 }

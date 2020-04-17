@@ -16,7 +16,7 @@ public:
 	size_t rank_count(CardType) const;
 
 private:
-	Card cards[104]; // todo: constant
+	Card* cards; // dynamically allocated
 	char serialNumber[11]; // todo: constant
 	size_t numberOfCards;
 

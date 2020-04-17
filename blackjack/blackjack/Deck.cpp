@@ -1,22 +1,21 @@
 #include "Deck.h"
 
 Deck::Deck(const size_t& k, const char* s = "Custom")
-{ 
+{
 	// todo implement
 }
 
 Card Deck::draw()
 {
-	size_t len = this->numberOfCards;
-
+	this->cards[0].setDrawn(true);
 	Card first = this->cards[0];
-	
-	for (size_t i = 1; i < len; i++)
+
+	for (size_t i = 1; i < this->numberOfCards; i++)
 	{
 		this->cards[i - 1] = this->cards[i];
 	}
 
-	this->cards[len - 1] = first;
+	this->cards[this->numberOfCards - 1] = first;
 
 	return first;
 }
@@ -55,7 +54,7 @@ size_t Deck::rank_count(CardType ct) const
 
 	for (size_t i = 0; i < this->numberOfCards; i++)
 	{
-		if (!this->cards[i].getIsInPlayer() && this->cards[i].getCardType() == ct)
+		if (!this->cards[i].getDrawn() && this->cards[i].getCardType() == ct)
 		{
 			++count;
 		}

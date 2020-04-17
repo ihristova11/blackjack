@@ -1,6 +1,6 @@
 enum class CardSuit {
-	Club = 0, // ♣
-	Diamond = 1, // ♦
-	Heart = 2, // ♥
-	Spade = 3, // ♠
+	Clubs = 0, // ♣
+	Diamonds = 1, // ♦
+	Hearts = 2, // ♥
+	Spades = 3, // ♠
 };
