@@ -15,6 +15,9 @@ public:
 	size_t suit_count(CardSuit) const;
 	size_t rank_count(CardType) const;
 
+	double findProbability(const size_t&) const;
+	int findDrawnNumber() const;
+
 private:
 	Card* cards; // dynamically allocated
 	char serialNumber[11]; // todo: constant

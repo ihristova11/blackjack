@@ -62,6 +62,38 @@ size_t Deck::rank_count(CardType ct) const
 	return count;
 }
 
+double Deck::findProbability(const size_t& score) const
+{
+	double probability = 0;
+	size_t desired = 21 - score;
+	int count = 0;
+	for (size_t i = 0; i < this->numberOfCards; i++)
+	{
+		if (!this - cards[i].getDrawn() && this->cards[i].getCardType() == desired) // should be updated
+		{
+			++count;
+		}
+	}
+	probability = count / findDrawnNumber();
+
+	return probability;
+}
+
+int Deck::findDrawnNumber() const
+{
+	int count = 0;
+
+	for (size_t i = 0; i < this->numberOfCards; i++)
+	{
+		if (!this->cards[i].getDrawn())
+		{
+			++count;
+		}
+	}
+
+	return count;
+}
+
 bool Deck::isValid(size_t index) const
 {
 	return index - 1 >= 0 && index - 1 < this->numberOfCards;

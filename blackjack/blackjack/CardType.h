@@ -1,4 +1,4 @@
-enum class CardType {
+enum CardType {
 	TWO = 2, 
 	THREE = 3, 
 	FOUR = 4, 
@@ -9,7 +9,7 @@ enum class CardType {
 	NINE = 9, 
 	TEN = 10, 
 	ACE = 1, 
-	KING = 10, 
-	QUEEN = 10, 
-	JACK = 10
+	KING = 12, 
+	QUEEN = 13, 
+	JACK = 14
 };

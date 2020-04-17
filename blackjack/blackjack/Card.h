@@ -8,8 +8,7 @@
 class Card
 {
 public: 
-	Card() = default;
-	Card(CardSuit, CardType);
+	Card(CardSuit, CardType, const char*);
 
 	bool getDrawn() const;
 	CardSuit getCardSuit() const;
