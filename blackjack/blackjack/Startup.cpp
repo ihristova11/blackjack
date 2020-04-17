@@ -152,7 +152,7 @@ int main()
 
 			if (dealer.get_score() > 21)
 			{
-				// dealer lost;
+				std::cout << "You won!" << std::endl;
 			}
 			else
 			{
@@ -180,14 +180,8 @@ int main()
 		}
 	}
 
-	players[n] = currentPlayer;
-
 	// save players to file
-	save_players(players, n + 1);
-	if (custom_player)
-	{
-		save_players(&currentPlayer, 1);
-	}
+	save_players(players, n);
 
 	delete[] players;
 
