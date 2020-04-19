@@ -1,5 +1,4 @@
 #include "Rules.h"
-#include "Constants.h"
 
 Rules::Rules() : cardPoints{}
 { }

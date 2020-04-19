@@ -2,9 +2,9 @@
 #define CARD_H
 
 #include "CardSuit.h"
+#include "Constants.h"
 #include "CardType.h"
 #include <ostream>
-#include "Constants.h"
 
 class Card
 {
