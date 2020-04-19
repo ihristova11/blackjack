@@ -95,7 +95,7 @@ int main()
 	Player dealer;
 	std::cout << "You will play as " << currentPlayer.name << "." << std::endl;
 	std::cout << "To choose default deck, enter default." << std::endl;
-	std::cout << "To choose custom deck, enter custom." << std::endl;
+	std::cout << "If you don't choose a default one, a custom deck will be created." << std::endl;
 
 	char deck_type[11];
 	std::cin.getline(deck_type, 11);
