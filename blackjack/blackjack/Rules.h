@@ -3,10 +3,7 @@
 
 class Rules
 {
-public: 
-	Rules();
-	~Rules();
-
+public:
 	void setCardPoints(const int*);
 	int getCardPoints(const int& index) const;
 
