@@ -1,14 +1,19 @@
 #ifndef RULES_H
 #define RULES_H
 
+#include "Constants.h"
+
 class Rules
 {
-public:
+public: 
+	Rules();
+	~Rules();
+
 	void setCardPoints(const int*);
 	int getCardPoints(const int& index) const;
 
 private:
-	int cardPoints[13];
+	int cardPoints[Constants::RulesCardPoints];
 };
 
 #endif // !RULES_H

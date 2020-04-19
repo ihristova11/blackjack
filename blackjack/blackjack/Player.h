@@ -3,6 +3,7 @@
 
 #include "Card.h"
 #include "Rules.h"
+#include "Constants.h"
 #include <ostream>
 
 class Player
@@ -18,7 +19,7 @@ public:
 
 	int get_score() const;
 
-	char name[100];
+	char name[Constants::PlayerMaxNameLen];
 	Player& add_card(const Card&, const Rules&);
 	std::ostream& print_drawn(std::ostream&) const;
 	std::ostream& print_player(std::ostream&) const;
@@ -29,7 +30,7 @@ private:
 	double coefficient;
 	unsigned int score;
 
-	Card drawnCards[104];
+	Card drawnCards[Constants::PlayerMaxDrawn];
 	size_t drawnLen;
 
 	void copy_internals(const Player&);

@@ -4,12 +4,14 @@
 #include "CardSuit.h"
 #include "CardType.h"
 #include <ostream>
+#include "Constants.h"
 
 class Card
 {
 public: 
 	Card();
 	Card(CardSuit, CardType, const char*);
+	Card& operator=(const Card&);
 	~Card();
 
 	bool getDrawn() const;
@@ -22,9 +24,10 @@ public:
 private:
 	CardSuit cardSuit;
 	CardType cardType;
-	char serialNumber[16]; // to do: constant
+	char serialNumber[Constants::CardMaxLenSN];
 
 	bool drawn;
+	void copy_internals(const Card&);
 };
 
 #endif // !CARD_H

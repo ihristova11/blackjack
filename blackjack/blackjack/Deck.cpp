@@ -1,10 +1,11 @@
 #include "Deck.h"
+#include "Constants.h"
 #include <cmath>
 #include <time.h>
 
-Deck::Deck() : serialNumber("Default"), numberOfCards(52)
+Deck::Deck() : serialNumber("Default"), numberOfCards(Constants::DeckDefault)
 {
-	this->add_cards(52);
+	this->add_cards(Constants::DeckDefault);
 }
 
 Deck::Deck(const int& k, const char* s)
@@ -19,7 +20,7 @@ Deck& Deck::operator=(const Deck& other)
 {
 	strcpy_s(this->serialNumber, strlen(other.serialNumber) + 1, other.serialNumber);
 	this->numberOfCards = other.numberOfCards;
-	for (size_t i = 0; i < 104; i++)
+	for (size_t i = 0; i < Constants::DeckMaxLenSN; i++)
 	{
 		this->cards[i] = other.cards[i];
 	}
@@ -87,7 +88,7 @@ size_t Deck::rank_count(CardType ct) const
 double Deck::find_probability(const int& score) const
 {
 	double probability = 0;
-	size_t desired = 21 - score;
+	size_t desired = Constants::PlayerMaxScore - score;
 	int count = 0;
 	for (size_t i = 0; i < this->numberOfCards; i++)
 	{
@@ -120,13 +121,13 @@ void Deck::add_cards(int count) // improve
 {
 	this->numberOfCards = count;
 	int ind;
-	for (size_t d = 0; d < 2; d++)
+	for (size_t d = 0; d < Constants::DeckMax; d++)
 	{
-		for (size_t s = 0; s < 4; s++)
+		for (size_t s = 0; s < Constants::DeckCSuit; s++)
 		{
-			for (size_t t = 0; t < 13; t++)
+			for (size_t t = 0; t < Constants::DeckCType; t++)
 			{
-				ind = d * 52 + s * 13 + t;
+				ind = d * Constants::DeckDefault + s * Constants::DeckCType + t;
 				this->cards[ind] =
 					Card(static_cast<CardSuit>(s),
 						static_cast<CardType>(t),
@@ -135,7 +136,7 @@ void Deck::add_cards(int count) // improve
 		}
 	}
 
-	for (size_t i = count; i < 104; i++)
+	for (size_t i = count; i < Constants::DeckMaxCards; i++)
 	{
 		this->cards[i] = Card(CardSuit::None, CardType::NONE, "");
 	}

@@ -2,6 +2,7 @@
 #define DECK_H
 
 #include "Card.h"
+#include "Constants.h"
 
 class Deck
 {
@@ -20,8 +21,8 @@ public:
 	int find_drawn() const;
 
 private:
-	Card cards[104]; // constant
-	char serialNumber[11]; // todo: constant
+	Card cards[Constants::DeckMaxCards];
+	char serialNumber[Constants::DeckMaxLenSN];
 	size_t numberOfCards;
 
 	bool valid(int) const;

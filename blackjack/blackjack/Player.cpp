@@ -1,8 +1,9 @@
 #include "Player.h"
+#include "Constants.h"
 #include <cstring>
 
 Player::Player()
-	: name(""), age(18), wins(0), coefficient(0), score(0), drawnLen(0)
+	: name(""), age(Constants::PlayerDefaultAge), wins(0), coefficient(0), score(0), drawnLen(0)
 {}
 
 Player::Player(const Player& other)
@@ -12,7 +13,7 @@ Player::Player(const Player& other)
 
 Player::Player(const char* name) :
 	name(""),
-	age(18),
+	age(Constants::PlayerDefaultAge),
 	wins(0),
 	coefficient(0),
 	score(0),
@@ -24,7 +25,7 @@ Player::Player(const char* name) :
 
 Player::Player(const char* name, const size_t& wins, const double& coefficient) :
 	name(""),
-	age(18), // constant 
+	age(Constants::PlayerDefaultAge),
 	wins(wins),
 	coefficient(coefficient),
 	score(0),

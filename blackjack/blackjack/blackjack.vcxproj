@@ -161,6 +161,7 @@
     <ClInclude Include="Card.h" />
     <ClInclude Include="CardSuit.h" />
     <ClInclude Include="CardType.h" />
+    <ClInclude Include="Constants.h" />
     <ClInclude Include="Deck.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Rules.h" />
