@@ -8,14 +8,15 @@ class Deck
 {
 public:
 	Deck();
-	Deck(const int&, const char* = "Custom");
+	Deck(const int&, const char*);
+	Deck(const Deck&);
 	Deck& operator=(const Deck&);
 
 	Card draw();
 	Deck& swap(int, int);
 
-	size_t suit_count(CardSuit) const;
-	size_t rank_count(CardType) const;
+	int suit_count(CardSuit) const;
+	int rank_count(CardType) const;
 
 	double find_probability(const int&) const;
 	int find_drawn() const;
@@ -23,13 +24,12 @@ public:
 private:
 	Card cards[Constants::DeckMaxCards];
 	char serialNumber[Constants::DeckMaxLenSN];
-	size_t numberOfCards;
+	int numberOfCards;
 
 	bool valid(int) const;
-
 	void add_cards(int count);
-
 	void shuffle();
+	void copy_internals(const Deck&);
 };
 
 #endif // !DECK_H

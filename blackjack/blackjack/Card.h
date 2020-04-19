@@ -11,8 +11,8 @@ class Card
 public: 
 	Card();
 	Card(CardSuit, CardType, const char*);
+	Card(const Card&);
 	Card& operator=(const Card&);
-	~Card();
 
 	bool getDrawn() const;
 	CardSuit getCardSuit() const;

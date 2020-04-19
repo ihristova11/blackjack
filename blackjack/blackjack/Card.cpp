@@ -9,6 +9,11 @@ Card::Card(CardSuit cs, CardType ct, const char* serialNumber) :
 	strcpy_s(this->serialNumber, strlen(serialNumber) + 1, serialNumber);
 }
 
+Card::Card(const Card& other)
+{
+	this->copy_internals(other);
+}
+
 Card& Card::operator=(const Card& other)
 {
 	if (this != &other)
@@ -18,9 +23,6 @@ Card& Card::operator=(const Card& other)
 
 	return *this;
 }
-
-Card::~Card()
-{ }
 
 bool Card::getDrawn() const
 {

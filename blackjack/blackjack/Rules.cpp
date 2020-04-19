@@ -3,13 +3,9 @@
 Rules::Rules() : cardPoints{}
 { }
 
-Rules::~Rules()
-{
-}
-
 void Rules::setCardPoints(const int* arr)
 {
-	for (size_t i = 0; i < Constants::DeckCSuit; i++)
+	for (int i = 0; i < Constants::DeckCType; i++)
 	{
 		this->cardPoints[i] = arr[i];
 	}

@@ -12,12 +12,12 @@ public:
 	Player();
 	Player(const Player&);
 	Player(const char*);
-	Player(const char*, const size_t&, const double&);
+	Player(const char*, const  int&, const double&);
 	Player& operator=(const Player&);
 
-	~Player();
-
 	int get_score() const;
+	void update_coeff();
+	void update_statistics(bool win);
 
 	char name[Constants::PlayerMaxNameLen];
 	Player& add_card(const Card&, const Rules&);
@@ -25,13 +25,14 @@ public:
 	std::ostream& print_player(std::ostream&) const;
 
 private:
-	unsigned int age;
-	unsigned int wins;
+	int age;
+	int wins;
+	int games;
 	double coefficient;
-	unsigned int score;
+	int score;
 
 	Card drawnCards[Constants::PlayerMaxDrawn];
-	size_t drawnLen;
+	int drawnLen;
 
 	void copy_internals(const Player&);
 };

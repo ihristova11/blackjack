@@ -8,7 +8,7 @@
 
 void print_players(const Player* players, int n)
 {
-	for (size_t i = 0; i < n; i++)
+	for (int i = 0; i < n; i++)
 	{
 		players[i].print_player(std::cout) << std::endl;
 	}
@@ -75,7 +75,7 @@ int main()
 	char name[99];
 	std::cin.getline(name, 100);
 	////// check for a player with that name
-	for (size_t i = 0; i < n; i++)
+	for (int i = 0; i < n; i++)
 	{
 		if (strcmp(players[i].name, name) == 0)
 		{
@@ -110,7 +110,7 @@ int main()
 		int deckSize = 0;
 		std::cin >> deckSize;
 		std::cin.ignore();
-		deck = Deck(deckSize);
+		deck = Deck(deckSize, "inputSN");
 	}
 
 	// create rules
@@ -136,6 +136,7 @@ int main()
 
 			if (currentPlayer.get_score() > 21)
 			{
+				currentPlayer.update_statistics(false);
 				std::cout << "You lose!" << std::endl;
 				end = true;
 			}
@@ -148,10 +149,12 @@ int main()
 				dealer.add_card(deck.draw(), rules);
 			}
 
+			std::cout << "The dealer’s draw: ";
 			dealer.print_drawn(std::cout);
 
 			if (dealer.get_score() > 21)
 			{
+				currentPlayer.update_statistics(true);
 				std::cout << "You won!" << std::endl;
 			}
 			else
@@ -159,10 +162,12 @@ int main()
 				// compare scores
 				if (currentPlayer.get_score() >= dealer.get_score())
 				{
+					currentPlayer.update_statistics(true);
 					std::cout << "You won!" << std::endl;
 				}
 				else
 				{
+					currentPlayer.update_statistics(false);
 					std::cout << "You lose!" << std::endl;
 				}
 			}
@@ -176,7 +181,6 @@ int main()
 		{
 			std::cerr << "Invalid command!" << std::endl;
 			std::cerr << "Enter a valid one!" << std::endl;
-			std::cin.getline(command, 12);
 		}
 	}
 

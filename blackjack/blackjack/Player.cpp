@@ -2,7 +2,13 @@
 #include <cstring>
 
 Player::Player()
-	: name(""), age(Constants::PlayerDefaultAge), wins(0), coefficient(0), score(0), drawnLen(0)
+	: name(""), 
+	age(Constants::PlayerDefaultAge), 
+	wins(0), 
+	games(0), 
+	coefficient(0), 
+	score(0), 
+	drawnLen(0)
 {}
 
 Player::Player(const Player& other)
@@ -14,6 +20,7 @@ Player::Player(const char* name) :
 	name(""),
 	age(Constants::PlayerDefaultAge),
 	wins(0),
+	games(0),
 	coefficient(0),
 	score(0),
 	drawnCards(),
@@ -22,10 +29,11 @@ Player::Player(const char* name) :
 	strcpy_s(this->name, strlen(name) + 1, name);
 }
 
-Player::Player(const char* name, const size_t& wins, const double& coefficient) :
+Player::Player(const char* name, const int& wins, const double& coefficient) :
 	name(""),
 	age(Constants::PlayerDefaultAge),
 	wins(wins),
+	games(0),
 	coefficient(coefficient),
 	score(0),
 	drawnCards(),
@@ -44,13 +52,24 @@ Player& Player::operator=(const Player& other)
 	return *this;
 }
 
-Player::~Player()
-{
-}
-
 int Player::get_score() const
 {
 	return this->score;
+}
+
+void Player::update_coeff()
+{
+	this->coefficient = static_cast<double>(this->wins) / this->games;
+}
+
+void Player::update_statistics(bool win)
+{
+	if (win)
+	{
+		this->wins++;
+	}
+	this->games++;
+	this->update_coeff();
 }
 
 Player& Player::add_card(const Card& card, const Rules& rules)
@@ -66,7 +85,7 @@ Player& Player::add_card(const Card& card, const Rules& rules)
 
 std::ostream& Player::print_drawn(std::ostream& out) const
 {
-	for (size_t i = 0; i < drawnLen; i++)
+	for (int i = 0; i < drawnLen; i++)
 	{
 		this->drawnCards[i].print(out) << " ";
 	}
@@ -90,6 +109,7 @@ void Player::copy_internals(const Player& other)
 	this->coefficient = other.coefficient;
 	this->score = other.score;
 	this->wins = other.wins;
+	this->games = other.games;
 	this->drawnLen = other.drawnLen;
 	for (size_t i = 0; i < other.drawnLen; i++)
 	{

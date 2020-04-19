@@ -7,7 +7,6 @@ class Rules
 {
 public: 
 	Rules();
-	~Rules();
 
 	void setCardPoints(const int*);
 	int getCardPoints(const int& index) const;
