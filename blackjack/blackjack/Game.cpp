@@ -73,7 +73,7 @@ void Game::start()
 		}
 		else if (strcmp(command, "Probability") == 0)
 		{
-			std::cout << deck.find_probability(this->player.get_score()) << std::endl;
+			std::cout << deck.find_probability(this->player.get_score(), this->rules) << std::endl;
 		}
 		else
 		{

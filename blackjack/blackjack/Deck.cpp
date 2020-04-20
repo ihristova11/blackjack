@@ -87,19 +87,19 @@ int Deck::rank_count(CardType ct) const
 	return count;
 }
 
-double Deck::find_probability(const int& score) const
+double Deck::find_probability(const int& score, const Rules& rules) const
 {
 	double probability = 0;
 	int desired = Constants::PlayerMaxScore - score;
 	int count = 0;
 	for (int i = 0; i < this->numberOfCards; i++)
 	{
-		if (!this - cards[i].getDrawn() && this->cards[i].getCardType() == desired) // should be updated
+		if (!this->cards[i].getDrawn() && desired == rules.getCardPoints(this->cards[i].getCardType()))
 		{
 			++count;
 		}
 	}
-	probability = count / find_drawn();
+	probability = static_cast<double>(count) / find_drawn();
 
 	return probability;
 }

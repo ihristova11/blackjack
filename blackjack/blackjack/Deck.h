@@ -3,6 +3,7 @@
 
 #include "Card.h"
 #include "Constants.h"
+#include "Rules.h"
 
 class Deck
 {
@@ -18,7 +19,7 @@ public:
 	int suit_count(CardSuit) const;
 	int rank_count(CardType) const;
 
-	double find_probability(const int&) const;
+	double find_probability(const int&, const Rules&) const;
 	int find_drawn() const;
 
 private:
