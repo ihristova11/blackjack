@@ -122,7 +122,6 @@ int Game::getRecordsLen()
 	ifs.open("players.bin", std::ios::in | std::ios::binary);
 	if (!ifs)
 	{
-		std::cerr << "Not able to open binary! No file named \"players.bin\"!" << std::endl;
 		return 0;
 	}
 	ifs.seekg(0, std::ios::end);
