@@ -14,6 +14,22 @@ void print_players(const Player* players, int n)
 	}
 }
 
+int get_records()
+{
+	int n;
+	std::ifstream ifs;
+	ifs.open("players.bin", std::ios::in | std::ios::binary);
+	if (!ifs)
+	{
+		std::cerr << "Not able to open binary!" << std::endl;
+	}
+	ifs.seekg(0, std::ios::end);
+
+	n = ifs.tellg() / sizeof(Player);
+	ifs.close();
+	return n;
+}
+
 void load_players(Player* players, int n)
 {
 	std::ifstream ifs;
@@ -42,12 +58,13 @@ void save_players(const Player* players, int n)
 
 void seed_players()
 {
-	Player* players = new Player[3];
-	players[0] = Player("Ivan Ivanov");
-	players[1] = Player("Petar Petrov");
-	players[2] = Player("Dimitar Dimitrov");
+	Player* players = new Player[4];
+	players[0] = Player("Ivan Ivanov", 12, 0.6);
+	players[1] = Player("Petar Petrov", 1, 1);
+	players[2] = Player("Dimitar Dimitrov", 19, 0.9);
+	players[3] = Player("Opa opa", 19, 0.9);
 
-	save_players(players, 3);
+	save_players(players, 4);
 
 	delete[] players;
 }
@@ -57,16 +74,15 @@ int main()
 {
 	bool end = false;
 	bool custom_player = false;
-
-	seed_players();
+	int player_index = 0;
+	int n = 3;
+	//seed_players();
 
 	// TODO: check for players in file
-
-	// for testing purposes
-	int n = 3;
+	n = get_records();
 	Player* players = new Player[n];
-
 	load_players(players, n);
+
 	print_players(players, n);
 
 	Player currentPlayer;
@@ -74,12 +90,14 @@ int main()
 	std::cout << "Choose a player or enter a new player:" << std::endl;
 	char name[99];
 	std::cin.getline(name, 100);
-	////// check for a player with that name
+
+	// check for a player with that name
 	for (int i = 0; i < n; i++)
 	{
 		if (strcmp(players[i].name, name) == 0)
 		{
 			currentPlayer = players[i];
+			player_index = i;
 			break;
 		}
 	}
@@ -184,8 +202,26 @@ int main()
 		}
 	}
 
-	// save players to file
-	save_players(players, n);
+	if (custom_player)
+	{
+		// append to file
+		Player* temp = new Player[n + 1];
+		for (int i = 0; i < n; i++)
+		{
+			temp[i] = players[i];
+		}
+		// delete currentPlayer score and cards
+		currentPlayer.erase_activity();
+		temp[n] = currentPlayer; // can have erase game activity func
+		save_players(temp, n + 1);
+		delete[] temp;
+	}
+	else
+	{
+		currentPlayer.erase_activity();
+		players[player_index] = currentPlayer;
+		save_players(players, n);
+	}
 
 	delete[] players;
 

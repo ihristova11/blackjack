@@ -15,11 +15,13 @@ public:
 	Player(const char*, const  int&, const double&);
 	Player& operator=(const Player&);
 
+	char name[Constants::PlayerMaxNameLen];
+	
 	int get_score() const;
 	void update_coeff();
 	void update_statistics(bool win);
+	void erase_activity();
 
-	char name[Constants::PlayerMaxNameLen];
 	Player& add_card(const Card&, const Rules&);
 	std::ostream& print_drawn(std::ostream&) const;
 	std::ostream& print_player(std::ostream&) const;

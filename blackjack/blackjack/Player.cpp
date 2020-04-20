@@ -2,12 +2,13 @@
 #include <cstring>
 
 Player::Player()
-	: name(""), 
-	age(Constants::PlayerDefaultAge), 
-	wins(0), 
-	games(0), 
-	coefficient(0), 
-	score(0), 
+	: name(""),
+	age(Constants::PlayerDefaultAge),
+	wins(0),
+	games(0),
+	coefficient(0),
+	score(0),
+	drawnCards(),
 	drawnLen(0)
 {}
 
@@ -70,6 +71,16 @@ void Player::update_statistics(bool win)
 	}
 	this->games++;
 	this->update_coeff();
+}
+
+void Player::erase_activity()
+{
+	for (int i = 0; i < this->drawnLen; i++)
+	{
+		this->drawnCards[i] = Card();
+	}
+	this->drawnLen = 0;
+	this->score = 0;
 }
 
 Player& Player::add_card(const Card& card, const Rules& rules)
