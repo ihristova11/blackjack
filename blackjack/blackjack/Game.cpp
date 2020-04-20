@@ -230,7 +230,11 @@ void Game::initDeck()
 		{
 			std::cout << "Choоse the size of the deck [50-104]:" << std::endl;
 			std::cin >> deckSize;
-			std::cin.ignore();
+			if (!std::cin)
+			{
+				std::cin.clear();
+			}
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		} while (deckSize < 50 || deckSize > 104);
 
 		this->deck = Deck(deckSize, "inputSN");
