@@ -101,18 +101,20 @@ void Game::init()
 void Game::loadPlayersFromBin()
 {
 	int n = getRecordsLen();
-	this->players = new Player[n];
-	this->playersLen = n;
-
-	std::ifstream ifs;
-	ifs.open("players.bin", std::ios::in | std::ios::binary);
-	if (!ifs)
+	if (n != 0)
 	{
-		std::cerr << "No players to choose from! Create a new player." << std::endl;
+		this->players = new Player[n];
+		this->playersLen = n;
+		std::ifstream ifs;
+		ifs.open("players.bin", std::ios::in | std::ios::binary);
+		if (!ifs)
+		{
+			std::cerr << "No players to choose from! Create a new player." << std::endl;
+		}
+		ifs.seekg(0);
+		ifs.read((char*) & *this->players, sizeof(Player) * n);
+		ifs.close();
 	}
-	ifs.seekg(0);
-	ifs.read((char*) & *this->players, sizeof(Player) * n);
-	ifs.close();
 }
 
 int Game::getRecordsLen()
@@ -122,6 +124,7 @@ int Game::getRecordsLen()
 	ifs.open("players.bin", std::ios::in | std::ios::binary);
 	if (!ifs)
 	{
+		std::cerr << "No players to choose from! Create a new player." << std::endl;
 		return 0;
 	}
 	ifs.seekg(0, std::ios::end);
