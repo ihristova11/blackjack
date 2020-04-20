@@ -20,6 +20,9 @@ void Game::start()
 	std::cout << "Start!" << std::endl;
 	char command[13];
 
+	this->player.add_card(deck.draw(), rules);
+	this->player.print_drawn(std::cout);
+
 	// engine
 	while (!end)
 	{
@@ -162,7 +165,7 @@ void Game::updateBinary()
 		}
 		// erase game activity before saving
 		this->player.erase_activity();
-		temp[this->playersLen] = this->player; 
+		temp[this->playersLen] = this->player;
 		this->playersLen++;
 
 		delete[] this->players;
@@ -219,12 +222,14 @@ void Game::initDeck()
 
 	if (strcmp(deck_type, "default") != 0)
 	{
-		std::cout << "Choоse the size of the deck:" << std::endl;
-
-		// create deck
 		int deckSize = 0;
-		std::cin >> deckSize;
-		std::cin.ignore();
+		do
+		{
+			std::cout << "Choоse the size of the deck [50-104]:" << std::endl;
+			std::cin >> deckSize;
+			std::cin.ignore();
+		} while (deckSize < 50 || deckSize > 104);
+
 		this->deck = Deck(deckSize, "inputSN");
 	}
 }
