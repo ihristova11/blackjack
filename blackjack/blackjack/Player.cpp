@@ -89,7 +89,7 @@ Player& Player::add_card(const Card& card, const Rules& rules)
 	++drawnLen;
 
 	// update points
-	this->score += rules.getCardPoints(card.getCardType());
+	this->score += rules.getCardPoints(card.getCardType(), this->score);
 
 	return *this;
 }

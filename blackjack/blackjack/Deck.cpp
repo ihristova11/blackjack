@@ -94,7 +94,8 @@ double Deck::find_probability(const int& score, const Rules& rules) const
 	int count = 0;
 	for (int i = 0; i < this->numberOfCards; i++)
 	{
-		if (!this->cards[i].getDrawn() && desired == rules.getCardPoints(this->cards[i].getCardType()))
+		if (!this->cards[i].getDrawn() && desired == 
+			rules.getCardPoints(this->cards[i].getCardType(), score))
 		{
 			++count;
 		}
