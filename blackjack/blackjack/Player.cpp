@@ -9,12 +9,12 @@ Player::Player()
 	coefficient(0),
 	score(0),
 	drawnCards(),
-	drawnLen(0)
+	drawnCount(0)
 {}
 
 Player::Player(const Player& other)
 {
-	copy_internals(other);
+	copyInternals(other);
 }
 
 Player::Player(const char* name) :
@@ -25,7 +25,7 @@ Player::Player(const char* name) :
 	coefficient(0),
 	score(0),
 	drawnCards(),
-	drawnLen(0)
+	drawnCount(0)
 {
 	strcpy_s(this->name, strlen(name) + 1, name);
 }
@@ -38,7 +38,7 @@ Player::Player(const char* name, const int& wins, const double& coefficient) :
 	coefficient(coefficient),
 	score(0),
 	drawnCards(),
-	drawnLen(0)
+	drawnCount(0)
 {
 	strcpy_s(this->name, strlen(name) + 1, name);
 }
@@ -47,56 +47,56 @@ Player& Player::operator=(const Player& other)
 {
 	if (this != &other)
 	{
-		copy_internals(other);
+		copyInternals(other);
 	}
 
 	return *this;
 }
 
-int Player::get_score() const
+int Player::getScore() const
 {
 	return this->score;
 }
 
-void Player::update_coeff()
+void Player::updateCoeff()
 {
 	this->coefficient = static_cast<double>(this->wins) / this->games;
 }
 
-void Player::update_statistics(bool win)
+void Player::updateStatistics(bool win)
 {
 	if (win)
 	{
 		this->wins++;
 	}
 	this->games++;
-	this->update_coeff();
+	this->updateCoeff();
 }
 
-void Player::erase_activity()
+void Player::clearActivity()
 {
-	for (int i = 0; i < this->drawnLen; i++)
+	for (int i = 0; i < this->drawnCount; i++)
 	{
 		this->drawnCards[i] = Card();
 	}
-	this->drawnLen = 0;
+	this->drawnCount = 0;
 	this->score = 0;
 }
 
-Player& Player::add_card(const Card& card, const Rules& rules)
+Player& Player::addCard(const Card& card, const Rules& rules)
 {
-	this->drawnCards[drawnLen] = card;
-	++drawnLen;
+	this->drawnCards[drawnCount] = card;
+	++drawnCount;
 
 	// update points
-	this->score += rules.getCardPoints(card.getCardType(), this->score);
+	this->score += rules.getPoints(card.getCardType(), this->score);
 
 	return *this;
 }
 
-std::ostream& Player::print_drawn(std::ostream& out) const
+std::ostream& Player::printDrawn(std::ostream& out) const
 {
-	for (int i = 0; i < drawnLen; i++)
+	for (int i = 0; i < drawnCount; i++)
 	{
 		this->drawnCards[i].print(out) << " ";
 	}
@@ -106,14 +106,14 @@ std::ostream& Player::print_drawn(std::ostream& out) const
 	return out;
 }
 
-std::ostream& Player::print_player(std::ostream& out) const
+std::ostream& Player::printPlayer(std::ostream& out) const
 {
 	out << name << " " << wins << " " << coefficient;
 
 	return out;
 }
 
-void Player::copy_internals(const Player& other)
+void Player::copyInternals(const Player& other)
 {
 	strcpy_s(this->name, strlen(other.name) + 1, other.name);
 	this->age = other.age;
@@ -121,8 +121,8 @@ void Player::copy_internals(const Player& other)
 	this->score = other.score;
 	this->wins = other.wins;
 	this->games = other.games;
-	this->drawnLen = other.drawnLen;
-	for (size_t i = 0; i < other.drawnLen; i++)
+	this->drawnCount = other.drawnCount;
+	for (size_t i = 0; i < other.drawnCount; i++)
 	{
 		this->drawnCards[i] = other.drawnCards[i];
 	}

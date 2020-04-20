@@ -3,7 +3,7 @@
 Card::Card() : cardSuit(CardSuit::None), cardType(CardType::NONE), serialNumber("")
 { }
 
-Card::Card(CardSuit cs, CardType ct, const char* serialNumber) :
+Card::Card(const CardSuit& cs, const CardType& ct, const char* serialNumber) :
 	cardSuit(cs), cardType(ct), drawn(false)
 {
 	strcpy_s(this->serialNumber, strlen(serialNumber) + 1, serialNumber);
@@ -11,14 +11,14 @@ Card::Card(CardSuit cs, CardType ct, const char* serialNumber) :
 
 Card::Card(const Card& other)
 {
-	this->copy_internals(other);
+	this->copyInternals(other);
 }
 
 Card& Card::operator=(const Card& other)
 {
 	if (this != &other)
 	{
-		copy_internals(other);
+		copyInternals(other);
 	}
 
 	return *this;
@@ -65,10 +65,10 @@ std::ostream& Card::print(std::ostream& out) const
 	out << "(";
 	switch (this->cardSuit)
 	{
-	case CardSuit::Clubs: out << "Clubs"; break;
-	case CardSuit::Diamonds: out << "Diamonds"; break;
-	case CardSuit::Hearts: out << "Hearts"; break;
-	case CardSuit::Spades: out << "Spades"; break;
+		case CardSuit::Clubs: out << "Clubs"; break;
+		case CardSuit::Diamonds: out << "Diamonds"; break;
+		case CardSuit::Hearts: out << "Hearts"; break;
+		case CardSuit::Spades: out << "Spades"; break;
 	}
 
 	out << ")";
@@ -76,7 +76,7 @@ std::ostream& Card::print(std::ostream& out) const
 	return out;
 }
 
-void Card::copy_internals(const Card& other)
+void Card::copyInternals(const Card& other)
 {
 	this->cardSuit = other.cardSuit;
 	this->cardType = other.cardType;

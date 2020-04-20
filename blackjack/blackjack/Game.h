@@ -8,31 +8,31 @@ class Game {
 public:
 	~Game();
 
-	Player* players;
+	Player* loaded;
 	Deck deck;
 	Rules rules;
 
 	Player player;
 	Player dealer;
 	
-	int playersLen;
+	int playersCount;
 
 	void start();
 	void init();
 
 private:
 	int playerIndex;
-	bool customPlayer;
+	bool customPlayerGame;
 
-	void loadPlayersFromBin();
-	int getRecordsLen();
-	void printPlayers();
-	void savePlayersToBin();
-	void updateBinary();
-
-	void initCurrentPlayer();
+	void initPlayer();
 	void initDeck();
 	void initRules();
+
+	void loadPlayers();
+	int countRecords();
+	void printPlayers();
+	void saveBinary();
+	void updateBinary();
 };
 
 #endif // !GAME_H

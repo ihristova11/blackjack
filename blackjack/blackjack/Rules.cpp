@@ -1,10 +1,11 @@
 #include "Rules.h"
 #include "CardType.h"
+#include "Constants.h"
 
 Rules::Rules() : cardPoints{}
 { }
 
-void Rules::setCardPoints(const int* arr)
+void Rules::setPoints(const int* arr)
 {
 	for (int i = 0; i < Constants::DeckCType; i++)
 	{
@@ -12,8 +13,8 @@ void Rules::setCardPoints(const int* arr)
 	}
 }
 
-int Rules::getCardPoints(const int& index, const int& score) const
+int Rules::getPoints(const int& index, const int& score) const
 {
-	if (21 - score >= 11 && index == CardType::ACE) { return 11; }
+	if (Constants::PlayerMaxScore - score >= 11 && index == CardType::ACE) { return 11; }
 	return this->cardPoints[index];
 }

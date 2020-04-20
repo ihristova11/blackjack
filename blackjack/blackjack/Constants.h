@@ -16,8 +16,11 @@ namespace Constants
 	const int PlayerMaxDrawn = 50;
 	const int PlayerMaxScore = 21;
 	const int PlayerDefaultAge = 18;
+	const int DealerMinScore = 17;
 
 	const int RulesCardPoints = 13;
+
+	const int GameMaxCommandLen = 13;
 }
 
 #endif // !CONSTANTS_H

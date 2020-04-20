@@ -14,23 +14,23 @@ public:
 	Deck& operator=(const Deck&);
 
 	Card draw();
-	Deck& swap(int, int);
+	Deck& swap(const int&, const int&);
+	int suit_count(const CardSuit&) const;
+	int rank_count(const CardType&) const;
 
-	int suit_count(CardSuit) const;
-	int rank_count(CardType) const;
-
-	double find_probability(const int&, const Rules&) const;
-	int find_drawn() const;
+	double calcProbability(const int&, const Rules&) const;
 
 private:
 	Card cards[Constants::DeckMaxCards];
 	char serialNumber[Constants::DeckMaxLenSN];
-	int numberOfCards;
+	int cardsCount;
 
-	bool valid(int) const;
-	void add_cards(int count);
+	int countDrawn() const;
+	bool valid(const int&) const;
+
+	void addCards(const int&);
 	void shuffle();
-	void copy_internals(const Deck&);
+	void copyInternals(const Deck&);
 };
 
 #endif // !DECK_H

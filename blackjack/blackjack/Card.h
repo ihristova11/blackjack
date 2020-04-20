@@ -10,7 +10,7 @@ class Card
 {
 public: 
 	Card();
-	Card(CardSuit, CardType, const char*);
+	Card(const CardSuit&, const CardType&, const char*);
 	Card(const Card&);
 	Card& operator=(const Card&);
 
@@ -25,9 +25,9 @@ private:
 	CardSuit cardSuit;
 	CardType cardType;
 	char serialNumber[Constants::CardMaxLenSN];
-
 	bool drawn;
-	void copy_internals(const Card&);
+
+	void copyInternals(const Card&);
 };
 
 #endif // !CARD_H

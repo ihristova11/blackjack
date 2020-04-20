@@ -17,14 +17,14 @@ public:
 
 	char name[Constants::PlayerMaxNameLen];
 	
-	int get_score() const;
-	void update_coeff();
-	void update_statistics(bool win);
-	void erase_activity();
+	int getScore() const;
+	void updateCoeff();
+	void updateStatistics(bool win);
+	void clearActivity();
 
-	Player& add_card(const Card&, const Rules&);
-	std::ostream& print_drawn(std::ostream&) const;
-	std::ostream& print_player(std::ostream&) const;
+	Player& addCard(const Card&, const Rules&);
+	std::ostream& printDrawn(std::ostream&) const;
+	std::ostream& printPlayer(std::ostream&) const;
 
 private:
 	int age;
@@ -34,9 +34,9 @@ private:
 	int score;
 
 	Card drawnCards[Constants::PlayerMaxDrawn];
-	int drawnLen;
+	int drawnCount;
 
-	void copy_internals(const Player&);
+	void copyInternals(const Player&);
 };
 
 #endif // !PLAYER_H

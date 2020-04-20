@@ -8,8 +8,8 @@ class Rules
 public:
 	Rules();
 
-	void setCardPoints(const int*);
-	int getCardPoints(const int&, const int&) const;
+	void setPoints(const int*);
+	int getPoints(const int&, const int&) const;
 
 private:
 	int cardPoints[Constants::RulesCardPoints];
